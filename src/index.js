@@ -1,20 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { QueryClientProvider, QueryClient } from "react-query";
 import "./styles.scss";
 import Home from "./pages/Home";
 import Connexion from "./pages/Connexion";
 import reportWebVitals from "./reportWebVitals";
 
+const queryClient = new QueryClient();
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/sign-in/" element={<Connexion />} />
-      </Routes>
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/sign-in/" element={<Connexion />} />
+        </Routes>
+      </Router>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
