@@ -2,9 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
+import { Provider } from "react-redux";
 import "./styles.scss";
+
 import Home from "./pages/Home";
 import Connexion from "./pages/Connexion";
+import User from "./pages/User";
+
+import store from "./store/store";
 import reportWebVitals from "./reportWebVitals";
 
 const queryClient = new QueryClient();
@@ -13,12 +18,15 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/sign-in/" element={<Connexion />} />
-        </Routes>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/sign-in/" element={<Connexion />} />
+            <Route path="/user/" element={<User />} />
+          </Routes>
+        </Router>
+      </Provider>
     </QueryClientProvider>
   </React.StrictMode>
 );
