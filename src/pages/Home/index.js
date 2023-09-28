@@ -3,13 +3,10 @@ import "./styles.scss";
 import iconChat from "../../assets/img/icon-chat.png";
 import iconMoney from "../../assets/img/icon-money.png";
 import iconSecurity from "../../assets/img/icon-security.png";
-import Navigation from "../../components/Navigation";
-import Footer from "../../components/Footer";
 
 function Home() {
   return (
     <>
-      <Navigation />
       <main>
         <div className="hero">
           <section className="hero-content">
@@ -51,7 +48,6 @@ function Home() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 }

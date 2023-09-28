@@ -5,8 +5,8 @@ const { actions, reducer } = createSlice({
   initialState: {
     token: null,
     email: null,
-    firstName: null,
-    lastName: null,
+    profile: {},
+    // profile: { firstName: null, lastName: null },
     storage: "off",
     isConnected: false,
   },
@@ -46,15 +46,16 @@ const { actions, reducer } = createSlice({
       sessionStorage.removeItem("userData");
       state.token = null;
       state.email = null;
-      state.firstName = null;
-      state.lastName = null;
+      state.profile = null;
+      // state.profile.firstName = null;
+      // state.profile.lastName = null;
       state.storage = "off";
       state.isConnected = false;
     },
     setProfile: (state, action) => {
       console.log(action);
-      state.firstName = action.payload.firstName;
-      state.lastName = action.payload.lastName;
+      state.profile.firstName = action.payload.firstName;
+      state.profile.lastName = action.payload.lastName;
     },
   },
 });

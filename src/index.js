@@ -8,6 +8,8 @@ import "./styles.scss";
 import Home from "./pages/Home";
 import Connexion from "./pages/Connexion";
 import User from "./pages/User";
+import Navigation from "./components/Navigation";
+import Footer from "./components/Footer";
 
 import store from "./store/store";
 import reportWebVitals from "./reportWebVitals";
@@ -16,19 +18,21 @@ const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/sign-in/" element={<Connexion />} />
-            <Route path="/user/" element={<User />} />
-          </Routes>
-        </Router>
-      </Provider>
-    </QueryClientProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <Provider store={store}>
+      <Router>
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/sign-in/" element={<Connexion />} />
+          <Route path="/user/" element={<User />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </Provider>
+  </QueryClientProvider>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

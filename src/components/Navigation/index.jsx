@@ -6,7 +6,7 @@ import * as userActions from "../../features/user";
 
 function Navigation() {
   const dispatch = useDispatch();
-  const isConnected = useSelector((state) => state.user.isConnected);
+  const { isConnected, profile } = useSelector((state) => state.user);
 
   return (
     <>
@@ -21,14 +21,17 @@ function Navigation() {
         </Link>
         <div>
           {isConnected ? (
-            <Link
-              to={"/"}
-              className="main-nav-item"
-              onClick={() => dispatch(userActions.signOut())}
-            >
+            <>
               <i className="fa fa-user-circle"></i>
-              Sign out
-            </Link>
+              <Link to={"/user/"}>{profile.firstName}</Link>
+              <Link
+                to={"/"}
+                className="main-nav-item"
+                onClick={() => dispatch(userActions.signOut())}
+              >
+                Sign out
+              </Link>
+            </>
           ) : (
             <Link to={"/sign-in/"} className="main-nav-item">
               <i className="fa fa-user-circle"></i>

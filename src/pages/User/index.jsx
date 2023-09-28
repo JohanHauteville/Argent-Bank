@@ -1,6 +1,4 @@
 import "./styles.scss";
-import Navigation from "../../components/Navigation";
-import Footer from "../../components/Footer";
 import { getProfile } from "../../services/services";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -9,44 +7,48 @@ import * as userActions from "../../features/user";
 
 function User() {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [isDataLoading, setIsDataLoading] = useState(true);
 
+  console.log("render");
+
   useEffect(() => {
     const fetchData = async () => {
-      if (!token) {
+      console.log("fetchData");
+      console.log(`isConnected ? ${user.isConnected}`);
+      if (!user.isConnected) {
         navigate("/sign-in/");
-      } else {
+      } else if (true) {
         try {
-          const { data, isLoading } = await getProfile(token);
+          console.log("getProfile");
+
+          const { data, isLoading } = await getProfile(user.token);
+          console.log(data);
           if (data) {
-            console.log(data);
             dispatch(userActions.setProfile(data.body));
+
             setIsDataLoading(isLoading);
+            console.log("setIsLoading");
           }
+          console.log(isLoading);
         } catch (error) {
           console.log("Erreur lors de la récupération du profil :", error);
         }
       }
     };
     fetchData();
-  }, [navigate, token, dispatch]);
+  }, [navigate, user.isConnected, user.token, dispatch]);
 
   return (
     <>
-      <Navigation />
-      {console.log(user)}
-      {isDataLoading ? (
-        "Chargement des données..."
-      ) : (
+      {user.isConnected && (
         <main className="main bg-dark">
           <div className="header">
             <h1>
               Welcome back
               <br />
-              {user.firstName} {user.lastName}
+              {user.profile.firstName} {user.profile.lastName}
             </h1>
             <button className="edit-button">Edit Name</button>
           </div>
@@ -83,7 +85,6 @@ function User() {
           </section>
         </main>
       )}
-      <Footer />
     </>
   );
 }

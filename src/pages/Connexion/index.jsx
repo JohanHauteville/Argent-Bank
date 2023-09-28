@@ -1,6 +1,4 @@
 import "./styles.scss";
-import Navigation from "../../components/Navigation";
-import Footer from "../../components/Footer";
 import { signInUser } from "../../services/services";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,12 +11,16 @@ function Connexion() {
   const [errorUser, setErrorUser] = useState(null);
   const [isloadingUser, setIsLoadingUser] = useState(null);
   const userData = useSelector((state) => state.user);
-  const isConnected = useSelector((state) => state.user.isConnected);
 
   useEffect(() => {
     dispatch(userActions.getStorage());
-    isConnected && navigate("/user/");
-  }, [dispatch, isConnected, navigate]);
+    console.log("dispacht => getStorage");
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log("connexion isConnected => navigate");
+    userData.isConnected && navigate("/user/");
+  }, [userData.isConnected, navigate]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -34,14 +36,12 @@ function Connexion() {
           storage: connectingValues.rememberMe,
         })
       );
-      navigate("/user/");
     }
     setErrorUser(error);
   }
 
   return (
     <>
-      <Navigation />
       <main className="main bg-dark">
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon"></i>
@@ -74,7 +74,6 @@ function Connexion() {
           </form>
         </section>
       </main>
-      <Footer />
     </>
   );
 }
