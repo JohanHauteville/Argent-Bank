@@ -4,7 +4,7 @@ import "./styles.scss";
 import { useSelector, useDispatch } from "react-redux";
 import * as userActions from "../../features/user";
 
-function Navigation() {
+function Banner() {
   const dispatch = useDispatch();
   const { isConnected, profile } = useSelector((state) => state.user);
 
@@ -23,7 +23,7 @@ function Navigation() {
           {isConnected ? (
             <>
               <i className="fa fa-user-circle"></i>
-              <Link to={"/user/"}>{profile.firstName}</Link>
+              <Link to={"/user/"}>{profile && profile.firstName}</Link>
               <Link
                 to={"/"}
                 className="main-nav-item"
@@ -44,4 +44,4 @@ function Navigation() {
   );
 }
 
-export default Navigation;
+export default Banner;

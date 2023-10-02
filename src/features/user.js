@@ -6,13 +6,11 @@ const { actions, reducer } = createSlice({
     token: null,
     email: null,
     profile: {},
-    // profile: { firstName: null, lastName: null },
     storage: "off",
     isConnected: false,
   },
   reducers: {
     signIn: (state, action) => {
-      console.log(action);
       state.token = action.payload.token;
       state.email = action.payload.email;
       state.isConnected = true;
@@ -24,11 +22,15 @@ const { actions, reducer } = createSlice({
           JSON.stringify({ data, expirationTime })
         );
       } else {
-        sessionStorage.setItem("userData", state.token);
+        const data = { token: state.token, email: state.email, storage: "on" };
+        sessionStorage.setItem("userData", JSON.stringify({ data }));
       }
     },
     getStorage: (state) => {
-      const userData = JSON.parse(localStorage.getItem("userData"));
+      let userData = JSON.parse(localStorage.getItem("userData"));
+      if (!userData) {
+        userData = JSON.parse(sessionStorage.getItem("userData"));
+      }
       if (userData) {
         const { data, expirationTime } = userData;
         if (expirationTime > Date.now()) {
@@ -37,7 +39,9 @@ const { actions, reducer } = createSlice({
           state.storage = data.storage;
           state.isConnected = true;
         } else {
+          userData = null;
           localStorage.removeItem("userData");
+          sessionStorage.removeItem("userData");
         }
       }
     },
@@ -46,14 +50,11 @@ const { actions, reducer } = createSlice({
       sessionStorage.removeItem("userData");
       state.token = null;
       state.email = null;
-      state.profile = null;
-      // state.profile.firstName = null;
-      // state.profile.lastName = null;
+      state.profile = {};
       state.storage = "off";
       state.isConnected = false;
     },
     setProfile: (state, action) => {
-      console.log(action);
       state.profile.firstName = action.payload.firstName;
       state.profile.lastName = action.payload.lastName;
     },

@@ -4,22 +4,32 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import * as userActions from "../../features/user";
+import Header from "../../components/Header";
+import checkAuthentication from "../../utils/authentification";
 
 function User() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [isDataLoading, setIsDataLoading] = useState(true);
+  const [isConnected, setIsConnected] = useState(false);
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
 
-  console.log("render");
+  // const [userData, setUserData] = useState({});
+
+  console.log("render : User Page");
 
   useEffect(() => {
     const fetchData = async () => {
+      checkAuthentication(dispatch);
+      // setIsConnected(user.isConnected);
+      console.log("is Connected = ", user.isConnected);
       console.log("fetchData");
-      console.log(`isConnected ? ${user.isConnected}`);
       if (!user.isConnected) {
+        console.log("not Connected");
+        console.log("user", user);
         navigate("/sign-in/");
-      } else if (true) {
+      } else {
         try {
           console.log("getProfile");
 
@@ -27,31 +37,34 @@ function User() {
           console.log(data);
           if (data) {
             dispatch(userActions.setProfile(data.body));
-
             setIsDataLoading(isLoading);
-            console.log("setIsLoading");
           }
-          console.log(isLoading);
         } catch (error) {
           console.log("Erreur lors de la récupération du profil :", error);
         }
       }
+      setIsLoadingUser(false);
     };
     fetchData();
   }, [navigate, user.isConnected, user.token, dispatch]);
+
+  useEffect(() => {
+    if (isLoadingUser) {
+      // Attendre que isLoadingUser soit faux pour continuer
+      return;
+    }
+
+    // Mettez ici le code que vous souhaitez exécuter une fois que l'utilisateur est connecté.
+    console.log(
+      "L'utilisateur est connecté, vous pouvez exécuter du code ici."
+    );
+  }, [isLoadingUser]);
 
   return (
     <>
       {user.isConnected && (
         <main className="main bg-dark">
-          <div className="header">
-            <h1>
-              Welcome back
-              <br />
-              {user.profile.firstName} {user.profile.lastName}
-            </h1>
-            <button className="edit-button">Edit Name</button>
-          </div>
+          <Header />
           <h2 className="sr-only">Accounts</h2>
           <section className="account">
             <div className="account-content-wrapper">

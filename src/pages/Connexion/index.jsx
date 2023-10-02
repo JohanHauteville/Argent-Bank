@@ -8,19 +8,17 @@ import { useNavigate } from "react-router";
 function Connexion() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [errorUser, setErrorUser] = useState(null);
+  const [errorUser, setErrorUser] = useState(false);
   const [isloadingUser, setIsLoadingUser] = useState(null);
   const userData = useSelector((state) => state.user);
 
-  useEffect(() => {
-    dispatch(userActions.getStorage());
-    console.log("dispacht => getStorage");
-  }, [dispatch]);
+  console.log("render : connexion");
 
   useEffect(() => {
-    console.log("connexion isConnected => navigate");
+    dispatch(userActions.getStorage());
+    console.log("dispacht => getStorage + navigate?");
     userData.isConnected && navigate("/user/");
-  }, [userData.isConnected, navigate]);
+  }, [dispatch, userData.isConnected, navigate]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -37,7 +35,10 @@ function Connexion() {
         })
       );
     }
-    setErrorUser(error);
+    if (error) {
+      setErrorUser(true);
+      console.log("Erreur lors de la connexion: ", error);
+    }
   }
 
   return (
