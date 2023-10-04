@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAuthenticateUser } from "./common";
+import { getUserStorage } from "./common";
 import { useDispatch } from "react-redux";
 import * as userActions from "../features/user";
 
@@ -10,7 +10,7 @@ export function useUser() {
   const dispatch = useDispatch();
   useEffect(() => {
     async function getUserDetails() {
-      const { authenticated, user } = await getAuthenticateUser();
+      const { authenticated, user } = await getUserStorage();
       setIsAuthenticated(authenticated);
       setconnectedUser(user);
       setUserLoading(false);

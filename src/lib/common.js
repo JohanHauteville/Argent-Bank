@@ -6,7 +6,7 @@ export function getFromSessionStorage(item) {
   return sessionStorage.getItem(item);
 }
 
-export function getAuthenticateUser() {
+export function getUserStorage() {
   // Objet de retour par défaut
   const defaultReturnObject = { authenticated: false, user: null };
 
