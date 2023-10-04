@@ -10,20 +10,20 @@ import { useUser } from "../../lib/customHooks";
 function Connexion() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { connectedUser, isAuthenticated, userLoading } = useUser();
+  const { connectedUser } = useUser();
   const [errorUser, setErrorUser] = useState(false);
-  const [isloadingUser, setIsLoadingUser] = useState(null);
+  const [isloadingUser, setIsLoadingUser] = useState(false);
   const userData = useSelector((state) => state.user);
 
   console.log("render : connexion");
 
   useEffect(() => {
-    // dispatch(userActions.getStorage());
     userData.isConnected && navigate(APP_ROUTES.PROFILE);
-  }, [dispatch, userData.isConnected, navigate, connectedUser]);
+  }, [userData.isConnected, navigate, connectedUser]);
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setIsLoadingUser(true);
     const formData = new FormData(e.currentTarget);
     const connectingValues = Object.fromEntries(formData);
     const { data, error, isLoading } = await signInUser(connectingValues);
