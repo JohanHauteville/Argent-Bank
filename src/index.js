@@ -11,6 +11,7 @@ import Banner from "./components/Banner";
 import Footer from "./components/Footer";
 
 import store from "./store/store";
+import { APP_ROUTES } from "./utils/constants";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -20,9 +21,9 @@ root.render(
     <Router>
       <Banner />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/sign-in/" element={<Connexion />} />
-        <Route path="/user/" element={<User />} />
+        <Route path={APP_ROUTES.HOME} element={<Home />} />
+        <Route path={APP_ROUTES.SIGN_IN} element={<Connexion />} />
+        <Route path={APP_ROUTES.PROFILE} element={<User />} />
       </Routes>
       <Footer />
     </Router>

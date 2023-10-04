@@ -1,13 +1,16 @@
 import "./styles.scss";
+import { APP_ROUTES } from "../../utils/constants";
 import { signInUser } from "../../services/services";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as userActions from "../../features/user";
 import { useNavigate } from "react-router";
+import { useUser } from "../../lib/customHooks";
 
 function Connexion() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { connectedUser, isAuthenticated, userLoading } = useUser();
   const [errorUser, setErrorUser] = useState(false);
   const [isloadingUser, setIsLoadingUser] = useState(null);
   const userData = useSelector((state) => state.user);
@@ -15,10 +18,9 @@ function Connexion() {
   console.log("render : connexion");
 
   useEffect(() => {
-    dispatch(userActions.getStorage());
-    console.log("dispacht => getStorage + navigate?");
-    userData.isConnected && navigate("/user/");
-  }, [dispatch, userData.isConnected, navigate]);
+    // dispatch(userActions.getStorage());
+    userData.isConnected && navigate(APP_ROUTES.PROFILE);
+  }, [dispatch, userData.isConnected, navigate, connectedUser]);
 
   async function handleSubmit(e) {
     e.preventDefault();

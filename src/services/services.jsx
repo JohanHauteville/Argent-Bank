@@ -1,6 +1,8 @@
 // import * as userActions from "../features/user";
 // import store from "../store/store";
 
+import { API_ROUTES } from "../utils/constants";
+
 export async function signInUser(body) {
   const dataJson = {
     email: body.username,
@@ -8,7 +10,7 @@ export async function signInUser(body) {
   };
   let isLoading = true;
   try {
-    const response = await fetch("http://localhost:3001/api/v1/user/login", {
+    const response = await fetch(API_ROUTES.SIGN_IN, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -33,7 +35,7 @@ export async function signInUser(body) {
 export async function getProfile(token) {
   let isLoading = true;
   try {
-    const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+    const response = await fetch(API_ROUTES.PROFILE, {
       method: "POST",
       mode: "cors",
       headers: {

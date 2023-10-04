@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./styles.scss";
 import { useSelector, useDispatch } from "react-redux";
 import * as userActions from "../../features/user";
+import { APP_ROUTES } from "../../utils/constants";
 
 function Banner() {
   const dispatch = useDispatch();
@@ -23,7 +24,9 @@ function Banner() {
           {isConnected ? (
             <>
               <i className="fa fa-user-circle"></i>
-              <Link to={"/user/"}>{profile && profile.firstName}</Link>
+              <Link to={APP_ROUTES.PROFILE}>
+                {profile && profile.firstName}
+              </Link>
               <Link
                 to={"/"}
                 className="main-nav-item"
@@ -33,7 +36,7 @@ function Banner() {
               </Link>
             </>
           ) : (
-            <Link to={"/sign-in/"} className="main-nav-item">
+            <Link to={APP_ROUTES.SIGN_IN} className="main-nav-item">
               <i className="fa fa-user-circle"></i>
               Sign In
             </Link>

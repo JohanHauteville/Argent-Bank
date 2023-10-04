@@ -22,8 +22,10 @@ const { actions, reducer } = createSlice({
           JSON.stringify({ data, expirationTime })
         );
       } else {
-        const data = { token: state.token, email: state.email, storage: "on" };
-        sessionStorage.setItem("userData", JSON.stringify({ data }));
+        const data = { token: state.token, email: state.email, storage: "off" };
+        console.log("data for session storage", data);
+        console.log("action : ", action);
+        sessionStorage.setItem("userData", JSON.stringify(data));
       }
     },
     getStorage: (state) => {

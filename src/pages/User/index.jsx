@@ -1,64 +1,56 @@
 import "./styles.scss";
+import { APP_ROUTES } from "../../utils/constants";
 import { getProfile } from "../../services/services";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import * as userActions from "../../features/user";
 import Header from "../../components/Header";
-import checkAuthentication from "../../utils/authentification";
+import { useUser } from "../../lib/customHooks";
 
 function User() {
+  const { connectedUser, isAuthenticated, userLoading } = useUser();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
-  const [isDataLoading, setIsDataLoading] = useState(true);
-  const [isConnected, setIsConnected] = useState(false);
-  const [isLoadingUser, setIsLoadingUser] = useState(true);
-
-  // const [userData, setUserData] = useState({});
+  const [isUserProfileLoading, setIsUserProfileLoading] = useState(true);
 
   console.log("render : User Page");
 
   useEffect(() => {
-    const fetchData = async () => {
-      checkAuthentication(dispatch);
-      // setIsConnected(user.isConnected);
-      console.log("is Connected = ", user.isConnected);
-      console.log("fetchData");
-      if (!user.isConnected) {
-        console.log("not Connected");
-        console.log("user", user);
-        navigate("/sign-in/");
-      } else {
-        try {
-          console.log("getProfile");
-
-          const { data, isLoading } = await getProfile(user.token);
-          console.log(data);
-          if (data) {
-            dispatch(userActions.setProfile(data.body));
-            setIsDataLoading(isLoading);
-          }
-        } catch (error) {
-          console.log("Erreur lors de la récupération du profil :", error);
-        }
+    if (!userLoading) {
+      if (!isAuthenticated || !connectedUser) {
+        navigate(APP_ROUTES.SIGN_IN);
       }
-      setIsLoadingUser(false);
-    };
-    fetchData();
-  }, [navigate, user.isConnected, user.token, dispatch]);
+      dispatch(userActions.getStorage());
+    }
+  }, [userLoading, navigate, isAuthenticated, connectedUser, dispatch]);
 
   useEffect(() => {
-    if (isLoadingUser) {
-      // Attendre que isLoadingUser soit faux pour continuer
-      return;
+    async function getUserProfile() {
+      try {
+        console.log("getProfile");
+        const { data, isLoading } = await getProfile(connectedUser.token);
+        console.log(data);
+        if (data) {
+          await dispatch(userActions.setProfile(data.body));
+          setIsUserProfileLoading(false);
+        }
+      } catch (error) {
+        console.log("Erreur lors de la récupération du profil :", error);
+      }
     }
-
-    // Mettez ici le code que vous souhaitez exécuter une fois que l'utilisateur est connecté.
-    console.log(
-      "L'utilisateur est connecté, vous pouvez exécuter du code ici."
-    );
-  }, [isLoadingUser]);
+    if (user.isConnected) {
+      if (!userLoading) {
+        // console.log(user);
+        // if (isUserProfileLoading) {
+        if (!user.profile.firstName) {
+          getUserProfile();
+        }
+        // }
+      }
+    }
+  }, [user, userLoading, connectedUser, dispatch]);
 
   return (
     <>
