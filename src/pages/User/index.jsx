@@ -20,6 +20,8 @@ function User() {
   useEffect(() => {
     if (!userLoading) {
       if (!isAuthenticated || !connectedUser) {
+        console.log("page user: supression");
+        dispatch(userActions.signOut());
         navigate(APP_ROUTES.SIGN_IN);
       }
       dispatch(userActions.getStorage());
@@ -33,7 +35,7 @@ function User() {
         const { data, isLoading } = await getProfile(connectedUser.token);
         console.log(data);
         if (data) {
-          await dispatch(userActions.setProfile(data.body));
+          await dispatch(userActions.update(data.body));
           setIsUserProfileLoading(false);
         }
       } catch (error) {

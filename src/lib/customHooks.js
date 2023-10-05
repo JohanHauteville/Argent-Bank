@@ -9,7 +9,7 @@ export function useUser() {
   const [userLoading, setUserLoading] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
-    async function getUserDetails() {
+    async function getUserConnexionDetails() {
       const { authenticated, user } = await getUserStorage();
       setIsAuthenticated(authenticated);
       setconnectedUser(user);
@@ -17,7 +17,7 @@ export function useUser() {
       await dispatch(userActions.getStorage());
     }
 
-    getUserDetails();
+    getUserConnexionDetails();
   }, []);
 
   return { connectedUser, isAuthenticated, userLoading };

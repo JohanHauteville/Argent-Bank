@@ -1,5 +1,6 @@
 import "./styles.scss";
 import { useSelector } from "react-redux";
+import EditProfileButton from "../EditProfileButton";
 
 function Header() {
   const user = useSelector((state) => state.user);
@@ -10,7 +11,8 @@ function Header() {
         <br />
         {user.profile.firstName} {user.profile.lastName} !
       </h1>
-      <button className="edit-button">Edit Name</button>
+      {user.profile && <EditProfileButton />}
+      {/* <EditProfileButton /> */}
     </div>
   );
 }

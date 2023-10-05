@@ -20,7 +20,7 @@ function Banner() {
           />
           <h1 className="sr-only">Argent Bank</h1>
         </Link>
-        <div>
+        <div className="main-nav-log-container">
           {isConnected ? (
             <>
               <i className="fa fa-user-circle"></i>

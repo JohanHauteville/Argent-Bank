@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const { actions, reducer } = createSlice({
   name: "user",
   initialState: {
+    status: "void",
     token: null,
     email: null,
     profile: {},
@@ -15,17 +16,18 @@ const { actions, reducer } = createSlice({
       state.email = action.payload.email;
       state.isConnected = true;
       if (action.payload.storage === "on") {
-        const expirationTime = Date.now() + 3600000;
+        // const expirationTime = Date.now() + 3600000;
         const data = { token: state.token, email: state.email, storage: "on" };
         localStorage.setItem(
           "userData",
-          JSON.stringify({ data, expirationTime })
+          JSON.stringify({ data })
+          // JSON.stringify({ data, expirationTime })
         );
       } else {
         const data = { token: state.token, email: state.email, storage: "off" };
         console.log("data for session storage", data);
         console.log("action : ", action);
-        sessionStorage.setItem("userData", JSON.stringify(data));
+        sessionStorage.setItem("userData", JSON.stringify({ data }));
       }
     },
     getStorage: (state) => {
@@ -34,34 +36,38 @@ const { actions, reducer } = createSlice({
         userData = JSON.parse(sessionStorage.getItem("userData"));
       }
       if (userData) {
-        const { data, expirationTime } = userData;
-        if (expirationTime > Date.now()) {
-          state.token = data.token;
-          state.email = data.email;
-          state.storage = data.storage;
-          state.isConnected = true;
-        } else {
-          userData = null;
-          localStorage.removeItem("userData");
-          sessionStorage.removeItem("userData");
-        }
+        const { data } = userData;
+        // const { data, expirationTime } = userData;
+        // if (expirationTime > Date.now()) {
+        state.token = data.token;
+        state.email = data.email;
+        state.storage = data.storage;
+        state.isConnected = true;
+        // } else {
+        //   userData = null;
+        //   localStorage.removeItem("userData");
+        //   sessionStorage.removeItem("userData");
+        // }
       }
     },
     signOut: (state) => {
       localStorage.removeItem("userData");
       sessionStorage.removeItem("userData");
+      state.status = "void";
       state.token = null;
       state.email = null;
       state.profile = {};
       state.storage = "off";
       state.isConnected = false;
     },
-    setProfile: (state, action) => {
-      state.profile.firstName = action.payload.firstName;
-      state.profile.lastName = action.payload.lastName;
+    update: (state, action) => {
+      action.payload.firstName &&
+        (state.profile.firstName = action.payload.firstName);
+      action.payload.lastName &&
+        (state.profile.lastName = action.payload.lastName);
     },
   },
 });
 
-export const { signIn, getStorage, signOut, setProfile } = actions;
+export const { signIn, getStorage, signOut, update } = actions;
 export default reducer;

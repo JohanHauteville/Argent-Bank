@@ -10,3 +10,5 @@ export const APP_ROUTES = {
   SIGN_IN: `/login/`,
   PROFILE: `/profile/`,
 };
+
+export const STORAGE = "userData";

@@ -1,7 +1,7 @@
-// import * as userActions from "../features/user";
-// import store from "../store/store";
+import * as userActions from "../features/user";
+import store from "../store/store";
 
-import { API_ROUTES } from "../utils/constants";
+import { API_ROUTES, APP_ROUTES } from "../utils/constants";
 
 export async function signInUser(body) {
   const dataJson = {
@@ -27,7 +27,7 @@ export async function signInUser(body) {
     isLoading = false;
     return { data, isLoading };
   } catch (error) {
-    // console.error(`Connexion error: ${error.message}`);
+    console.error(`Connexion error: ${error.message}`);
     return { error };
   }
 }
@@ -42,7 +42,10 @@ export async function getProfile(token) {
         authorization: `Bearer ${token}`,
       },
     });
-
+    if (response.status === 401) {
+      store.dispatch(userActions.signOut());
+      window.location.href(APP_ROUTES.SIGN_IN);
+    }
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }

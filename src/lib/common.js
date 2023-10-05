@@ -22,7 +22,8 @@ export function getUserStorage() {
         return defaultReturnObject;
       }
     }
-
+    console.log("=====userData=====");
+    console.log(userData);
     const token = userData.data.token;
     const email = userData.data.email;
     console.log("LocalStorage / SessionStorage Récupéré");
