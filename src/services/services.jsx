@@ -60,7 +60,7 @@ export async function getProfile(token) {
   }
 }
 
-export async function editProfile(token, newDataUser) {
+export async function editProfileFromAPI(token, newDataUser) {
   let isLoading = true;
   console.log(newDataUser);
   try {
@@ -86,6 +86,7 @@ export async function editProfile(token, newDataUser) {
     }
     store.dispatch(userActions.update(newDataUser));
     const data = await response.json();
+    console.log(data);
     isLoading = false;
     return { data, isLoading };
   } catch (error) {

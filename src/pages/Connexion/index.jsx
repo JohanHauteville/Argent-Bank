@@ -28,6 +28,7 @@ function Connexion() {
     const connectingValues = Object.fromEntries(formData);
     const { data, error, isLoading } = await signInUser(connectingValues);
     setIsLoadingUser(isLoading);
+
     if (data) {
       dispatch(
         userActions.signIn({

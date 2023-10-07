@@ -18,7 +18,7 @@ export function useUser() {
     }
 
     getUserConnexionDetails();
-  }, []);
+  }, [dispatch]);
 
   return { connectedUser, isAuthenticated, userLoading };
 }

@@ -7,7 +7,7 @@ const { actions, reducer } = createSlice({
     token: null,
     email: null,
     profile: {},
-    storage: "off",
+    storage: "Session",
     isConnected: false,
   },
   reducers: {
@@ -16,17 +16,19 @@ const { actions, reducer } = createSlice({
       state.email = action.payload.email;
       state.isConnected = true;
       if (action.payload.storage === "on") {
-        // const expirationTime = Date.now() + 3600000;
-        const data = { token: state.token, email: state.email, storage: "on" };
-        localStorage.setItem(
-          "userData",
-          JSON.stringify({ data })
-          // JSON.stringify({ data, expirationTime })
-        );
+        const data = {
+          token: state.token,
+          email: state.email,
+          storage: "Local",
+        };
+        localStorage.setItem("userData", JSON.stringify({ data }));
       } else {
-        const data = { token: state.token, email: state.email, storage: "off" };
+        const data = {
+          token: state.token,
+          email: state.email,
+          storage: "Session",
+        };
         console.log("data for session storage", data);
-        console.log("action : ", action);
         sessionStorage.setItem("userData", JSON.stringify({ data }));
       }
     },
@@ -37,17 +39,10 @@ const { actions, reducer } = createSlice({
       }
       if (userData) {
         const { data } = userData;
-        // const { data, expirationTime } = userData;
-        // if (expirationTime > Date.now()) {
         state.token = data.token;
         state.email = data.email;
         state.storage = data.storage;
         state.isConnected = true;
-        // } else {
-        //   userData = null;
-        //   localStorage.removeItem("userData");
-        //   sessionStorage.removeItem("userData");
-        // }
       }
     },
     signOut: (state) => {
@@ -57,7 +52,7 @@ const { actions, reducer } = createSlice({
       state.token = null;
       state.email = null;
       state.profile = {};
-      state.storage = "off";
+      state.storage = "Session";
       state.isConnected = false;
     },
     update: (state, action) => {
