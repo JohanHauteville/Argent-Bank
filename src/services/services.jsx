@@ -39,6 +39,7 @@ export async function getProfile(token) {
       method: "POST",
       mode: "cors",
       headers: {
+        "Content-Type": "application/json",
         authorization: `Bearer ${token}`,
       },
     });
@@ -49,12 +50,46 @@ export async function getProfile(token) {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
+    // store.dispatch();
     const data = await response.json();
     isLoading = false;
     return { data, isLoading };
   } catch (error) {
-    // console.error(`Connexion error: ${error.message}`);
+    console.error(`Connexion error: ${error.message}`);
+    return { error };
+  }
+}
+
+export async function editProfile(token, newDataUser) {
+  let isLoading = true;
+  console.log(newDataUser);
+  try {
+    const response = await fetch(API_ROUTES.PROFILE, {
+      method: "PUT",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(newDataUser),
+    });
+
+    // Si il y a une erreur d'autorisation:
+    // le storage et les states redux sont vidés
+    // pui on retourne sur la page de connexion
+    if (response.status === 401) {
+      store.dispatch(userActions.signOut());
+      window.location.href(APP_ROUTES.SIGN_IN);
+    }
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    store.dispatch(userActions.update(newDataUser));
+    const data = await response.json();
+    isLoading = false;
+    return { data, isLoading };
+  } catch (error) {
+    console.error(`Connexion error: ${error.message}`);
     return { error };
   }
 }

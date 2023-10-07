@@ -1,15 +1,22 @@
 import { useSelector, useDispatch } from "react-redux";
 import * as editProfileButtonActions from "../../features/editButton";
+import * as userActions from "../../features/user";
+import { editProfile } from "../../services/services";
+
 import "./styles.scss";
 
 function EditProfileButton() {
   const dispatch = useDispatch();
   const isFormVisible = useSelector((state) => state.editProfileButton);
   const userProfile = useSelector((state) => state.user.profile);
+  const token = useSelector((state) => state.user.token);
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("Submit");
+    const formData = new FormData(e.currentTarget);
+    const newProfileValues = Object.fromEntries(formData);
+    editProfile(token, newProfileValues);
+    // dispatch(userActions.update(newProfileValues));
     dispatch(editProfileButtonActions.toggle());
   }
 
@@ -23,12 +30,14 @@ function EditProfileButton() {
                 type="text"
                 placeholder={userProfile.firstName}
                 name="firstName"
+                required
               />
 
               <input
                 type="text"
                 placeholder={userProfile.lastName}
                 name="lastName"
+                required
               />
             </div>
             <div className="edit-profile-form__buttons">
