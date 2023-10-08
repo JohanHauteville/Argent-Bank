@@ -10,6 +10,7 @@ import { useUser } from "../../lib/customHooks";
 function Connexion() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // Faire en sorte que ce hook lance la connexion et la récupération si les données sont présente
   const { connectedUser } = useUser();
   const [errorUser, setErrorUser] = useState(false);
   const [isloadingUser, setIsLoadingUser] = useState(false);

@@ -12,7 +12,6 @@ function Header() {
         {user.profile.firstName} {user.profile.lastName} !
       </h1>
       {user.profile && <EditProfileButton />}
-      {/* <EditProfileButton /> */}
     </div>
   );
 }

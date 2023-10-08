@@ -32,7 +32,7 @@ export async function signInUser(body) {
   }
 }
 
-export async function getProfile(token) {
+export async function getProfileFromAPI(token) {
   let isLoading = true;
   try {
     const response = await fetch(API_ROUTES.PROFILE, {
@@ -50,7 +50,6 @@ export async function getProfile(token) {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    // store.dispatch();
     const data = await response.json();
     isLoading = false;
     return { data, isLoading };
@@ -62,7 +61,6 @@ export async function getProfile(token) {
 
 export async function editProfileFromAPI(token, newDataUser) {
   let isLoading = true;
-  console.log(newDataUser);
   try {
     const response = await fetch(API_ROUTES.PROFILE, {
       method: "PUT",
@@ -86,7 +84,6 @@ export async function editProfileFromAPI(token, newDataUser) {
     }
     store.dispatch(userActions.update(newDataUser));
     const data = await response.json();
-    console.log(data);
     isLoading = false;
     return { data, isLoading };
   } catch (error) {

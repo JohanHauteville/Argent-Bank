@@ -1,10 +1,12 @@
-// import logo from "./logo.svg";
 import "./styles.scss";
 
 import Feature from "../../components/Feature";
 import { MOCK_FEATURES } from "../../mock/features";
+import { useUser } from "../../lib/customHooks";
 
 function Home() {
+  // Vérifie si l'utilisateur est connecté
+  useUser();
   return (
     <>
       <main>

@@ -15,15 +15,13 @@ export function getUserStorage() {
     if (!userData) {
       console.log("pas de local, tentative session");
       // Si aucune donnée dans le LocalStorage, tentative de récupération dans le SessionStorage
-      console.log("Pas de LocalStorage / SessionStorage");
       userData = JSON.parse(getFromSessionStorage("userData"));
       if (!userData) {
+        console.log("Pas de LocalStorage / SessionStorage");
         // Si aucune donnée dans le SessionStorage non plus, alors on retourne l'objet vide
         return defaultReturnObject;
       }
     }
-    // console.log("=====userData=====");
-    // console.log(userData);
     const token = userData.data.token;
     const email = userData.data.email;
     console.log("LocalStorage / SessionStorage Récupéré");
