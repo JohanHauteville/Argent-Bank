@@ -1,6 +1,3 @@
-import * as userActions from "../features/user";
-import store from "../store/store";
-
 import { API_ROUTES, APP_ROUTES } from "../utils/constants";
 
 export async function signInUser(body) {
@@ -43,10 +40,6 @@ export async function getProfileFromAPI(token) {
         authorization: `Bearer ${token}`,
       },
     });
-    if (response.status === 401) {
-      store.dispatch(userActions.signOut());
-      window.location.href(APP_ROUTES.SIGN_IN);
-    }
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -75,14 +68,10 @@ export async function editProfileFromAPI(token, newDataUser) {
     // Si il y a une erreur d'autorisation:
     // le storage et les states redux sont vidés
     // pui on retourne sur la page de connexion
-    if (response.status === 401) {
-      store.dispatch(userActions.signOut());
-      window.location.href(APP_ROUTES.SIGN_IN);
-    }
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    store.dispatch(userActions.update(newDataUser));
+
     const data = await response.json();
     isLoading = false;
     return { data, isLoading };

@@ -1,11 +1,10 @@
 import "./styles.scss";
 import { APP_ROUTES } from "../../utils/constants";
-import { signInUser } from "../../services/services";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * as userActions from "../../features/user";
 import { useNavigate } from "react-router";
 import { useUser } from "../../lib/customHooks";
+import { connectUser } from "../../features/user";
 
 function Connexion() {
   const dispatch = useDispatch();
@@ -27,22 +26,7 @@ function Connexion() {
     setIsLoadingUser(true);
     const formData = new FormData(e.currentTarget);
     const connectingValues = Object.fromEntries(formData);
-    const { data, error, isLoading } = await signInUser(connectingValues);
-    setIsLoadingUser(isLoading);
-
-    if (data) {
-      dispatch(
-        userActions.signIn({
-          token: data.body.token,
-          email: connectingValues.username,
-          storage: connectingValues.rememberMe,
-        })
-      );
-    }
-    if (error) {
-      setErrorUser(true);
-      console.log("Erreur lors de la connexion: ", error);
-    }
+    dispatch(connectUser(connectingValues));
   }
 
   return (

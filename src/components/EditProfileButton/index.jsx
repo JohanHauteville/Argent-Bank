@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import * as editProfileButtonActions from "../../features/editButton";
-import { editProfileFromAPI } from "../../services/services";
+import { editUserProfile } from "../../features/user";
 
 import "./styles.scss";
 
@@ -14,7 +14,7 @@ function EditProfileButton() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const newProfileValues = Object.fromEntries(formData);
-    editProfileFromAPI(token, newProfileValues);
+    dispatch(editUserProfile(token, newProfileValues));
     dispatch(editProfileButtonActions.toggle());
   }
 
