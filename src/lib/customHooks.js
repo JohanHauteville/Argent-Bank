@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getUserStorage } from "./common";
 import { useDispatch } from "react-redux";
 import * as userActions from "../features/user";
-import { getUserProfile } from "../features/user";
+import { getUserProfile } from "../features/user-actions";
 
 export function useUser() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

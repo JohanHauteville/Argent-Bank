@@ -1,8 +1,7 @@
 import "./styles.scss";
 import { APP_ROUTES } from "../../utils/constants";
-// import { getProfileFromAPI } from "../../services/services";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import * as userActions from "../../features/user";
 import Header from "../../components/Header";

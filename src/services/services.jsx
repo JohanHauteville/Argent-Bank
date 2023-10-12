@@ -1,4 +1,4 @@
-import { API_ROUTES, APP_ROUTES } from "../utils/constants";
+import { API_ROUTES } from "../utils/constants";
 
 export async function signInUser(body) {
   const dataJson = {
@@ -40,9 +40,6 @@ export async function getProfileFromAPI(token) {
         authorization: `Bearer ${token}`,
       },
     });
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
     const data = await response.json();
     isLoading = false;
     return { data, isLoading };
@@ -64,13 +61,6 @@ export async function editProfileFromAPI(token, newDataUser) {
       },
       body: JSON.stringify(newDataUser),
     });
-
-    // Si il y a une erreur d'autorisation:
-    // le storage et les states redux sont vidés
-    // pui on retourne sur la page de connexion
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
 
     const data = await response.json();
     isLoading = false;

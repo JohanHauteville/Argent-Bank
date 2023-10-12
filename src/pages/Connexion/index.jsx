@@ -1,29 +1,24 @@
 import "./styles.scss";
 import { APP_ROUTES } from "../../utils/constants";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { connectUser } from "../../features/user-actions";
 import { useUser } from "../../lib/customHooks";
-import { connectUser } from "../../features/user";
 
 function Connexion() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // Faire en sorte que ce hook lance la connexion et la récupération si les données sont présente
-  const { connectedUser } = useUser();
-  const [errorUser, setErrorUser] = useState(false);
-  const [isloadingUser, setIsLoadingUser] = useState(false);
   const userData = useSelector((state) => state.user);
-
-  console.log("render : connexion");
+  const notification = useSelector((state) => state.user.status);
+  useUser();
 
   useEffect(() => {
     userData.isConnected && navigate(APP_ROUTES.PROFILE);
-  }, [userData.isConnected, navigate, connectedUser]);
+  }, [userData.isConnected, navigate]);
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setIsLoadingUser(true);
     const formData = new FormData(e.currentTarget);
     const connectingValues = Object.fromEntries(formData);
     dispatch(connectUser(connectingValues));
@@ -35,9 +30,8 @@ function Connexion() {
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon"></i>
           <h1>Sign In</h1>
-          {isloadingUser && <p>Connexion en cours...</p>}
-          {errorUser && (
-            <p className="error-message">Erreur de Username / Password</p>
+          {notification.message !== "" && (
+            <p className={notification.class}>{notification.message}</p>
           )}
           <form onSubmit={handleSubmit}>
             <div className="input-wrapper">

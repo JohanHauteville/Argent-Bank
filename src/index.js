@@ -9,6 +9,7 @@ import Connexion from "./pages/Connexion";
 import User from "./pages/User";
 import Banner from "./components/Banner";
 import Footer from "./components/Footer";
+import Error from "./pages/Error";
 
 import store from "./store/store";
 import { APP_ROUTES } from "./utils/constants";
@@ -24,6 +25,7 @@ root.render(
         <Route path={APP_ROUTES.HOME} element={<Home />} />
         <Route path={APP_ROUTES.SIGN_IN} element={<Connexion />} />
         <Route path={APP_ROUTES.PROFILE} element={<User />} />
+        <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
     </Router>

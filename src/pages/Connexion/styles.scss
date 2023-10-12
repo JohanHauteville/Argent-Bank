@@ -1,10 +1,3 @@
-// body {
-//     margin: 0;
-//     display: flex;
-//     flex-direction: column;
-//     min-height: 100vh;
-//   }
-
 .main {
   flex: 1;
 }
@@ -16,6 +9,13 @@
 
 .bg-dark {
   background-color: #12002b;
+}
+
+.notification {
+  &--error {
+    color: #f00;
+    font-weight: 500;
+  }
 }
 
 .sign-in-button {

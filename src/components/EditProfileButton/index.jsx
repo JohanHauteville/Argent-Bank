@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import * as editProfileButtonActions from "../../features/editButton";
-import { editUserProfile } from "../../features/user";
+import { editUserProfile } from "../../features/user-actions";
 
 import "./styles.scss";
 
