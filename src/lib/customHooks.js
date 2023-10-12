@@ -14,15 +14,13 @@ export function useUser() {
   useEffect(() => {
     async function getUserConnexionDetails() {
       setUserLoading(true);
-      // Essai de récupération des info de connexion de l'utilisateur depuis le Storage
+      // Essai de récupération des infos de connexion de l'utilisateur depuis le Storage
       const { authenticated, user } = await getUserStorage();
       setIsAuthenticated(authenticated);
       setconnectedUser(user);
 
-      // Utilisateur authentifié?
+      // Utilisateur authentifié ?
       if (authenticated) {
-        // dispatch(getUserProfile(user.token));
-
         // Les données du profil de l'utilisateur ont bien été récupérées ?
         const isUserProfileDataLoaded = await dispatch(
           getUserProfile(user.token)

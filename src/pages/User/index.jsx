@@ -3,11 +3,13 @@ import { APP_ROUTES } from "../../utils/constants";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import * as userActions from "../../features/user";
-import Header from "../../components/Header";
 import { useUser } from "../../lib/customHooks";
 
+import * as userActions from "../../features/user";
+
+import Header from "../../components/Header";
 import Account from "../../components/Account";
+
 import { MOCK_ACCOUNT } from "../../mock/account";
 
 function User() {
@@ -19,6 +21,8 @@ function User() {
   useEffect(() => {
     if (!userLoading) {
       if (!isAuthenticated || !connectedUser) {
+        // Chargement de l'utilisateur terminé ET aucun utilisateur authentifié ou connecté:
+        // Déconnexion + redirection vers la page de connexion
         dispatch(userActions.signOut());
         navigate(APP_ROUTES.SIGN_IN);
       }

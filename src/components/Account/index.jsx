@@ -1,3 +1,5 @@
+import "./styles.scss";
+
 function Account({ title, amount, description }) {
   return (
     <section className="account">

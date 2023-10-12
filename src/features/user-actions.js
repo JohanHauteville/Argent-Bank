@@ -44,7 +44,8 @@ export const getUserProfile = (token) => {
   return async (dispatch) => {
     const { data } = await getProfileFromAPI(token);
 
-    // Si le status retourné est 401: déconnexion et navigation vers la page de connexion
+    // Si le status retourné est 401:
+    // Déconnexion et navigation vers la page de connexion
     if (data.status === 401) {
       dispatch(userActions.signOut());
       window.location.href = APP_ROUTES.SIGN_IN;
@@ -69,7 +70,8 @@ export const getUserProfile = (token) => {
 export const editUserProfile = (token, newUserData) => {
   return async (dispatch) => {
     const { data, error } = await editProfileFromAPI(token, newUserData);
-    // Si le status retourné est 401: déconnexion et navigation vers la page de connexion
+    // Si le status retourné est 401:
+    // Déconnexion et navigation vers la page de connexion
     if (data.status === 401) {
       dispatch(userActions.signOut());
       window.location.href = APP_ROUTES.SIGN_IN;

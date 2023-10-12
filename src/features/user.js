@@ -31,7 +31,6 @@ const { actions, reducer } = createSlice({
           email: state.email,
           storage: "Session",
         };
-        console.log("data for session storage", data);
         sessionStorage.setItem("userData", JSON.stringify({ data }));
       }
     },
