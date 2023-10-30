@@ -1,10 +1,10 @@
-![alt text](./src/assets/argentBankLogo.png)
+![alt text](./src/assets/img/argentBankLogo.png)
 
 # Projet React : ArgentBank - Connexion de compte utilisateur
 
 ## Description
 
-Ce projet est le treizième de la formation de développeur d'application React de chez OpenCLassrooms.
+C'est le treizième projet de la formation de développeur d'application React de chez OpenCLassrooms.
 
 Dans ce projet le développement se réalise en deux phases:
 
@@ -14,47 +14,23 @@ Dans ce projet le développement se réalise en deux phases:
 Pour la phase 1, comme point de départ, il nous est fourni le HTML statique et le CSS pour la page d'accueil, la page de connexion et la page de profil.:
 https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API/tree/master/designs
 
-Le BackEnd est disponible ici:
-https://github.com/OpenClassrooms-Student-Center/P9-front-end-dashboard
+## Objectifs du projet
 
-## Outils et Contraintes techniques
+- Réaliser l'authentification à une API
+- Implémenter un gestionnaire d'état dans une application React
+- Intéragir avec une API
+- Modéliser une API
 
-### Outils standards
+## Outils
 
 - Create React App
 - React Routeur
 - Styling : au choix CSS ou SASS
-- Redux
-
-### Contraintes techniques
-
-#### React:
-
-- Découpage en composants modulaires et réutilisables
-- Un composant par fichier
-- Structure logique des différents fichiers
-- Utilisation des props entre les composants
-- Utilisation du state dans les composants quand c'est nécessaire
-- Gestion des événements
-- Gérer les Call Api en dehors des components
-- Standardiser les données venants de l'API
-
-Il est également recommandé, mais pas imposé, d'utiliser des composants fonctionnels plutôt que des composants classes.
-
-#### React Router:
-
-- Les paramètres des routes sont gérés par React Router
-- Il existe une page par route
-- La page 404 est renvoyée pour chaque route inexistante, ou si une valeur présente dans l'URL ne fait pas partie des données renseignées.
-- La logique du routeur est réunie dans une seul fichier
+- Redux & Redux DevTools
 
 ## Scripts disponibles
 
 Dans ce projet, vous pouvez lancer:
-
-## Available Scripts
-
-In the project directory, you can run:
 
 ### `yarn start`
 
