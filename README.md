@@ -1,6 +1,56 @@
-# Getting Started with Create React App
+![alt text](./src/assets/argentBankLogo.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Projet React : ArgentBank - Connexion de compte utilisateur
+
+## Description
+
+Ce projet est le treizième de la formation de développeur d'application React de chez OpenCLassrooms.
+
+Dans ce projet le développement se réalise en deux phases:
+
+    Phase 1 : Authentification des utilisateurs - Création d'une application web permettant aux clients de se connecter et de gérer leurs comptes et leur profil.
+    Phase 2 : Transactions - Il s’agirait de spécifier les endpoints d’API nécessaires pour une éventuelle deuxième mission une fois que nous aurons terminé la première.
+
+Pour la phase 1, comme point de départ, il nous est fourni le HTML statique et le CSS pour la page d'accueil, la page de connexion et la page de profil.:
+https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API/tree/master/designs
+
+Le BackEnd est disponible ici:
+https://github.com/OpenClassrooms-Student-Center/P9-front-end-dashboard
+
+## Outils et Contraintes techniques
+
+### Outils standards
+
+- Create React App
+- React Routeur
+- Styling : au choix CSS ou SASS
+- Redux
+
+### Contraintes techniques
+
+#### React:
+
+- Découpage en composants modulaires et réutilisables
+- Un composant par fichier
+- Structure logique des différents fichiers
+- Utilisation des props entre les composants
+- Utilisation du state dans les composants quand c'est nécessaire
+- Gestion des événements
+- Gérer les Call Api en dehors des components
+- Standardiser les données venants de l'API
+
+Il est également recommandé, mais pas imposé, d'utiliser des composants fonctionnels plutôt que des composants classes.
+
+#### React Router:
+
+- Les paramètres des routes sont gérés par React Router
+- Il existe une page par route
+- La page 404 est renvoyée pour chaque route inexistante, ou si une valeur présente dans l'URL ne fait pas partie des données renseignées.
+- La logique du routeur est réunie dans une seul fichier
+
+## Scripts disponibles
+
+Dans ce projet, vous pouvez lancer:
 
 ## Available Scripts
 
