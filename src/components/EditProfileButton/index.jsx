@@ -22,14 +22,12 @@ function EditProfileButton() {
       checkString(newProfileValues.firstName) &&
       checkString(newProfileValues.lastName)
     ) {
-      console.log("Tout est OK");
       dispatch(
         userActions.updateStatus({ message: "", class: "notification" })
       );
       dispatch(editUserProfile(token, newProfileValues));
       dispatch(editProfileButtonActions.toggle());
     } else {
-      console.log("erreur");
       dispatch(
         userActions.updateStatus({
           message: "Incorrect data",
